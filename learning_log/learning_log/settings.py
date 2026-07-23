@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< Updated upstream
+=======
+    #third party apps 
+    
+    #my apps
+>>>>>>> Stashed changes
     "learning_logs",
     "users",
 ]
@@ -123,3 +129,9 @@ STATIC_URL = "static/"
 #My setttings 
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = 'learning_logs:index'
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
