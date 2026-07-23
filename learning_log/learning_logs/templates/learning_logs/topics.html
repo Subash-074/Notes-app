@@ -1,20 +1,3 @@
-<<<<<<< Updated upstream
-{% extends "learning_logs/base.html" %}
-
-{% block content %}
-    <p>Topics</p>
-    <ul>
-        {% for topic in topics %}
-            <li>
-                <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-            </li>
-        {% empty %}
-            <li>No topics have been added yet.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'learning_logs:new_topic'%}" >Add a new topic:</a>
-{% endblock content %}
-=======
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
@@ -34,4 +17,3 @@
   <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
 
 {% endblock content %}
->>>>>>> Stashed changes
