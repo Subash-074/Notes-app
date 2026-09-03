@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: notes-app
+    env: python
+    plan: free
+    rootDir: learning_log
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn learning_log.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "notes-app.onrender.com,localhost,127.0.0.1"

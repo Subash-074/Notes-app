@@ -32,9 +32,9 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
 DEFAULT_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
-HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
-if HEROKU_APP_NAME:
-    DEFAULT_ALLOWED_HOSTS.append(f"{HEROKU_APP_NAME}.herokuapp.com")
+EXTERNAL_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if EXTERNAL_HOST:
+    DEFAULT_ALLOWED_HOSTS.append(EXTERNAL_HOST)
 
 if os.environ.get("ALLOWED_HOSTS"):
     ALLOWED_HOSTS = [host.strip() for host in os.environ["ALLOWED_HOSTS"].split(",") if host.strip()]
@@ -42,8 +42,8 @@ else:
     ALLOWED_HOSTS = DEFAULT_ALLOWED_HOSTS
 
 CSRF_TRUSTED_ORIGINS = []
-if HEROKU_APP_NAME:
-    CSRF_TRUSTED_ORIGINS = [f"https://{HEROKU_APP_NAME}.herokuapp.com"]
+if EXTERNAL_HOST:
+    CSRF_TRUSTED_ORIGINS = [f"https://{EXTERNAL_HOST}"]
 
 
 # Application definition
@@ -165,10 +165,11 @@ BOOTSTRAP3={
 
 }
 
-# Heroku settings
-if os.environ.get("DYNO"):
+# Production security settings for hosted environments
+if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    ALLOWED_HOSTS = ["*"]
+    if not ALLOWED_HOSTS:
+        ALLOWED_HOSTS = ["*"]
