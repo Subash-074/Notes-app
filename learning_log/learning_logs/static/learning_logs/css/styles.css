@@ -77,11 +77,17 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  text-decoration: none;
   color: var(--text);
   font-weight: 800;
   letter-spacing: -0.04em;
   font-size: 1.05rem;
+  cursor: default;
+  user-select: none;
+}
+
+.nav-home {
+  font-weight: 700;
+  color: var(--text);
 }
 
 .brand-mark {
