@@ -1,70 +1,80 @@
 # Notes App
 
-A Django notes application for creating, organizing, and managing personal learning topics and journal entries.
+A Django-based personal learning journal and notes platform designed with a modern social-feed interface inspired by Instagram.
 
 ## Live Demo
 
-https://notes-app-gbwz.onrender.com
+Local development:
+
+```text
+http://127.0.0.1:8000/
+```
 
 ## About the Project
 
 This app allows each user to:
-- register for an account
-- log in and log out securely
-- create learning topics
-- add detailed entries under each topic
-- edit or update past notes
-- only view their own topics and entries
+- create an account and log in securely
+- create their own learning topics
+- write and update journal-style entries under each topic
+- view only their personal notes in a social timeline layout
+- edit entries directly from the dashboard
+- experience a modern, minimal interface similar to social media apps
 
-The project includes user authentication, topic ownership, and protected access control so users can only manage their own content.
+The project uses Django authentication and per-user ownership to keep each person’s content private and separate.
 
 ## Tech Stack
 
 - Python
 - Django 6.1.1
 - SQLite for local development
-- Gunicorn for production serving
-- WhiteNoise for static files
-- Render for deployment
+- WhiteNoise for static file serving
+- Gunicorn for production-ready deployment
+- HTML, CSS, and JavaScript for the UI
 
 ## Project Structure
 
 ```bash
 Notes-app/
 ├── README.md
-├── render.yaml
 ├── learning_log/
 │   ├── manage.py
-│   ├── requirements.txt
 │   ├── db.sqlite3
-│   ├── staticfiles/
-│   └── learning_log/
-│       ├── __init__.py
-│       ├── settings.py
-│       ├── urls.py
-│       ├── wsgi.py
-│       └── asgi.py
-│   ├── learning_logs/
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── forms.py
+│   ├── learning_log/
+│   │   ├── __init__.py
+│   │   ├── settings.py
 │   │   ├── urls.py
-│   │   └── templates/
+│   │   ├── wsgi.py
+│   │   └── asgi.py
+│   ├── learning_logs/
+│   │   ├── migrations/
+│   │   ├── static/
+│   │   ├── templates/
+│   │   ├── admin.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
 │   └── users/
-│       ├── views.py
+│       ├── templates/
 │       ├── urls.py
-│       └── templates/
-└── .gitignore
+│       ├── views.py
+│       └── __init__.py
+├── .gitignore
+├── .venv/
+├── render.yaml
+└── requirements.txt
 ```
 
 ## Features
 
-- Topic-based notes organization
-- Personal entries tied to each user
-- User authentication and registration flow
-- Protected access to private data
-- Modern custom UI styling
-- Deployment-ready Django configuration for Render
+- User registration and login flow
+- Private topic ownership per user
+- Journal-style entries with edit support
+- Instagram-inspired UI design
+- Modern nav bar, cards, feed layout, and premium landing page
+- Responsive layout for desktop and mobile screens
+- Clean social dashboard experience for logged-in users
 
 ## Getting Started
 
@@ -82,30 +92,41 @@ Notes-app/
 
 3. Install dependencies:
    ```bash
-   pip install -r learning_log/requirements.txt
+   pip install -r requirements.txt
    ```
 
-4. Apply migrations:
+4. Navigate to the Django project folder:
    ```bash
    cd learning_log
+   ```
+
+5. Apply migrations:
+   ```bash
    python manage.py migrate
    ```
 
-5. Run the app locally:
+6. Run the app locally:
    ```bash
    python manage.py runserver
    ```
 
-6. Open the app in the browser:
+7. Open in your browser:
    ```text
    http://127.0.0.1:8000/
    ```
 
+## Local Development Notes
+
+- The app uses SQLite for development, which is convenient for local testing.
+- Logged-in users are redirected to the personal social dashboard.
+- Logged-out users see the public landing page and marketing-style home screen.
+- Topics and entries are scoped to the currently authenticated user.
+
 ## Deployment
 
-This project is configured for deployment on Render.
+This project is deployment-ready for Django hosting platforms such as Render.
 
-### Render settings
+### Example Render setup
 
 Build command:
 ```bash
@@ -117,17 +138,19 @@ Start command:
 gunicorn learning_log.wsgi:application --bind 0.0.0.0:$PORT
 ```
 
-Environment variables:
+Recommended environment variables:
 ```bash
 DEBUG=False
 SECRET_KEY=your-secret-key
-ALLOWED_HOSTS=notes-app-gbwz.onrender.com,localhost,127.0.0.1
+ALLOWED_HOSTS=your-domain.com,localhost,127.0.0.1
 ```
 
 ## Status
 
-- [x] Core app functionality
 - [x] User authentication
-- [x] Personal notes system
-- [x] Deployment configuration
-- [x] Live app available on Render
+- [x] Personal notes and topic management
+- [x] Social-style dashboard design
+- [x] Edit functionality for entries
+- [x] Responsive UI
+- [x] Local Django app runs successfully
+- [x] Project structure documented
