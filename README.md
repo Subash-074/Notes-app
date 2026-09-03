@@ -1,4 +1,4 @@
-# Notes App
+# Learning Log
 
 A Django-based personal learning journal and notes platform designed with a modern social-feed interface inspired by Instagram.
 
