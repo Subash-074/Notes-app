@@ -4,33 +4,51 @@
   <div class="hero reveal">
     <div class="hero-copy">
       <p class="eyebrow">Your personal learning space</p>
-      <h1>Track your learning with clarity.</h1>
+      <h1>Turn ideas into momentum.</h1>
       <p class="hero-text">
-        Capture ideas, organize topics, and turn scattered knowledge into a clean system that helps you grow every day.
+        Learning Log helps you capture what you learn, organize your growth, and keep every idea within reach so your knowledge feels intentional instead of scattered.
       </p>
       <div class="hero-actions">
         <a href="{% url 'users:register' %}" class="btn btn-primary">Create account</a>
         <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
       </div>
       <div class="trust-row">
-        <span>Private by design</span>
-        <span>Fast journaling</span>
-        <span>Smart organization</span>
+        <span>Private notes</span>
+        <span>Topic-based learning</span>
+        <span>Built for consistency</span>
       </div>
     </div>
 
-    <div class="hero-card">
-      <div class="metric">
-        <span class="metric-number" data-target="24">0</span>
-        <span class="metric-label">ideas captured</span>
+    <div class="hero-card hero-preview">
+      <div class="preview-topbar">
+        <div class="preview-dots">
+          <span class="dot dot-pink"></span>
+          <span class="dot dot-purple"></span>
+          <span class="dot dot-blue"></span>
+        </div>
+        <span class="preview-label">Daily progress</span>
       </div>
-      <div class="metric">
-        <span class="metric-number" data-target="8">0</span>
-        <span class="metric-label">active topics</span>
+
+      <div class="preview-stats">
+        <div class="mini-stat">
+          <small>Study streak</small>
+          <strong>14 days</strong>
+        </div>
+        <div class="mini-stat accent">
+          <small>Ideas saved</small>
+          <strong>246</strong>
+        </div>
       </div>
-      <div class="metric">
-        <span class="metric-number" data-target="96">0</span>
-        <span class="metric-label">momentum</span>
+
+      <div class="preview-stack">
+        <div class="preview-card">
+          <span class="mini-tag">Python</span>
+          <p>Reviewed decorators and refactored clean utility patterns.</p>
+        </div>
+        <div class="preview-card muted">
+          <span class="mini-tag alt">Design</span>
+          <p>Captured color, spacing, and interface ideas for a stronger product.</p>
+        </div>
       </div>
     </div>
   </div>
