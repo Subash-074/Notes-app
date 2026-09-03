@@ -1,6 +1,50 @@
 {% extends 'learning_logs/base.html' %}
 
+{% block header %}
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Your personal learning space</p>
+      <h1>Track your learning.</h1>
+      <p class="hero-text">
+        Capture topics, document breakthroughs, and turn scattered ideas into a clear,
+        reusable knowledge base.
+      </p>
+      <div class="hero-actions">
+        <a href="{% url 'users:register' %}" class="btn btn-primary">Create account</a>
+        <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="metric">
+        <span class="metric-number">24</span>
+        <span class="metric-label">ideas captured</span>
+      </div>
+      <div class="metric">
+        <span class="metric-number">8</span>
+        <span class="metric-label">active topics</span>
+      </div>
+      <div class="metric">
+        <span class="metric-number">96%</span>
+        <span class="metric-label">momentum</span>
+      </div>
+    </div>
+  </div>
+{% endblock header %}
+
 {% block content %}
-  <p>Learning Log helps you keep track of your learning, for any topic you're
-  interested in.</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>Organize learning</h3>
+      <p>Group every subject into a dedicated space so your progress stays clear and focused.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Build momentum</h3>
+      <p>Save meaningful insights as you go and revisit them whenever a concept needs refreshment.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Keep it personal</h3>
+      <p>Your topics and notes remain private, making the app feel like a trusted digital notebook.</p>
+    </div>
+  </div>
 {% endblock content %}

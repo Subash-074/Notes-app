@@ -1,20 +1,47 @@
-<p>
-  <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-  <a href="{% url 'learning_logs:topics' %}">Notes</a> -
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}.
-  {% else %}
-    <a href="{% url 'users:register' %}">Register</a> -
-    <a href="{% url 'users:login' %}">Log in</a>
-  {% endif %}
-</p>
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Learning Log</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'learning_logs/css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="topbar">
+        <div class="container nav-inner">
+          <a class="brand" href="{% url 'learning_logs:index' %}">
+            <span class="brand-mark">✦</span>
+            <span>Learning Log</span>
+          </a>
 
-{% block content %}{% endblock content %}
+          <div class="nav-links">
+            <a href="{% url 'learning_logs:topics' %}">Topics</a>
+            {% if user.is_authenticated %}
+              <span class="welcome">Hello, {{ user.username }}</span>
+              <a href="{% url 'users:logout' %}" class="btn btn-ghost">Log out</a>
+            {% else %}
+              <a href="{% url 'users:register' %}">Register</a>
+              <a href="{% url 'users:login' %}" class="btn btn-primary">Log in</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
 
-{% if user.is_authenticated %}
-  <hr />
-  <form action="{% url 'users:logout' %}" method='post'>
-    {% csrf_token %}
-    <button name='submit'>Log out</button>
-  </form>
-{% endif %}
+      <main class="container app-shell">
+        <header class="page-header">
+          {% block header %}{% endblock header %}
+        </header>
+
+        <section class="content-panel">
+          {% block content %}{% endblock content %}
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

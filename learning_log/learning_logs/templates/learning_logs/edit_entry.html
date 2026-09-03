@@ -1,16 +1,18 @@
-{%extends "learning_logs/base.html"%}
-{%block content%}
+{% extends "learning_logs/base.html" %}
 
-    <p>
-        <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-    </p>
+{% block header %}
+  <div class="section-heading auth-heading">
+    <p class="eyebrow">Update</p>
+    <h1>Edit the entry</h1>
+  </div>
+{% endblock header %}
 
-    <p>Edit the entry:</p>
-
-    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Save changes</button>
+{% block content %}
+  <div class="auth-card">
+    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post" class="styled-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button name="submit" class="btn btn-primary">Save changes</button>
     </form>
-
+  </div>
 {% endblock content %}

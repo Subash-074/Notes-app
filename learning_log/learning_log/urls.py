@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 urlpatterns = [
@@ -23,3 +24,5 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('', include('learning_logs.urls', namespace='learning_logs')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
