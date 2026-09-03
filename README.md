@@ -6,8 +6,7 @@ A Django-based personal learning journal and notes platform designed with a mode
 
 Local development:
 
-```text
-http://127.0.0.1:8000/
+https://notes-app-gbwz.onrender.com/
 ```
 
 ## About the Project
