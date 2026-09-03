@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
-DEFAULT_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+DEFAULT_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", ".onrender.com", "*.onrender.com"]
 EXTERNAL_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if EXTERNAL_HOST:
     DEFAULT_ALLOWED_HOSTS.append(EXTERNAL_HOST)
@@ -44,6 +44,10 @@ else:
 CSRF_TRUSTED_ORIGINS = []
 if EXTERNAL_HOST:
     CSRF_TRUSTED_ORIGINS = [f"https://{EXTERNAL_HOST}"]
+    CSRF_TRUSTED_ORIGINS.append(f"https://*.{EXTERNAL_HOST.split('.', 1)[1]}")
+
+if not DEBUG and not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
