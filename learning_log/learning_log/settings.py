@@ -31,22 +31,22 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
-DEFAULT_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", ".onrender.com", "*.onrender.com"]
+DEFAULT_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 EXTERNAL_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if EXTERNAL_HOST:
     DEFAULT_ALLOWED_HOSTS.append(EXTERNAL_HOST)
+    DEFAULT_ALLOWED_HOSTS.append(f"*.{EXTERNAL_HOST.split('.', 1)[1]}")
 
 if os.environ.get("ALLOWED_HOSTS"):
     ALLOWED_HOSTS = [host.strip() for host in os.environ["ALLOWED_HOSTS"].split(",") if host.strip()]
 else:
     ALLOWED_HOSTS = DEFAULT_ALLOWED_HOSTS
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 if EXTERNAL_HOST:
-    CSRF_TRUSTED_ORIGINS = [f"https://{EXTERNAL_HOST}"]
-    CSRF_TRUSTED_ORIGINS.append(f"https://*.{EXTERNAL_HOST.split('.', 1)[1]}")
+    CSRF_TRUSTED_ORIGINS = [f"https://{EXTERNAL_HOST}", "https://*.onrender.com"]
 
-if not DEBUG and not ALLOWED_HOSTS:
+if not DEBUG:
     ALLOWED_HOSTS = ["*"]
 
 
