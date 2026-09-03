@@ -161,7 +161,7 @@ STORAGES = {
 
 #My setttings 
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = 'learning_logs:index'
+LOGIN_REDIRECT_URL = 'learning_logs:topics'
 
 #Settings for django-bootstrap3
 BOOTSTRAP3={

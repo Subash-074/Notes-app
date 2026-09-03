@@ -1,89 +1,133 @@
 # Notes App
 
-A Django web application that lets users log the topics they are learning about and record what they've learned about each one.
+A Django notes application for creating, organizing, and managing personal learning topics and journal entries.
+
+## Live Demo
+
+https://notes-app-gbwz.onrender.com
 
 ## About the Project
 
-This is a Notes Taking app where each user can:
-- Register for an account and log in / log out
-- Create personal **topics** they want to save
-- Add **entries** (notes) under each topic describing what they've learned
-- Edit existing entries
-- View only their own topics and entries (other users' data is kept private)
+This app allows each user to:
+- register for an account
+- log in and log out securely
+- create learning topics
+- add detailed entries under each topic
+- edit or update past notes
+- only view their own topics and entries
 
-User accounts are fully implemented — registration, login, logout, and access control so users can only see and edit their own topics and entries. Styling the app, and deployment is currently in progress.
-
-> **Note:** Deployment has **not** been done yet. The project currently runs locally only.
+The project includes user authentication, topic ownership, and protected access control so users can only manage their own content.
 
 ## Tech Stack
 
-- **Python**
-- **Django** (6.0.7)
-- **SQLite** (default local database)
-- HTML / CSS (Django templates)
+- Python
+- Django 6.1.1
+- SQLite for local development
+- Gunicorn for production serving
+- WhiteNoise for static files
+- Render for deployment
 
 ## Project Structure
 
-```
-learning_log/
-├── manage.py
-├── db.sqlite3
-├── learning_log/          # Project settings, URLs, WSGI/ASGI config
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   └── asgi.py
-├── learning_logs/         # Main app: topics & entries
-│   ├── models.py          # Topic and Entry models
-│   ├── views.py
-│   ├── forms.py
-│   ├── urls.py
-│   └── templates/learning_logs/
-└── users/                 # User accounts app: register, login, logout
-    ├── views.py
-    ├── urls.py
-    └── templates/users/
+```bash
+Notes-app/
+├── README.md
+├── render.yaml
+├── learning_log/
+│   ├── manage.py
+│   ├── requirements.txt
+│   ├── db.sqlite3
+│   ├── staticfiles/
+│   └── learning_log/
+│       ├── __init__.py
+│       ├── settings.py
+│       ├── urls.py
+│       ├── wsgi.py
+│       └── asgi.py
+│   ├── learning_logs/
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── forms.py
+│   │   ├── urls.py
+│   │   └── templates/
+│   └── users/
+│       ├── views.py
+│       ├── urls.py
+│       └── templates/
+└── .gitignore
 ```
 
 ## Features
 
-- **Topics & Entries** – Each `Topic` belongs to a user (`owner`), and each `Entry` belongs to a `Topic`. Topics and entries are only visible to the user who created them.
-- **User Authentication** – Registration, login, and logout pages under the `users` app.
-- **Access Control** – Views are protected with `@login_required`, and users attempting to view or edit topics/entries that aren't theirs receive a 404.
+- Topic-based notes organization
+- Personal entries tied to each user
+- User authentication and registration flow
+- Protected access to private data
+- Modern custom UI styling
+- Deployment-ready Django configuration for Render
 
 ## Getting Started
 
-1. Clone the repository and navigate to the project folder:
+1. Clone the repository:
    ```bash
    git clone https://github.com/Subash-074/Notes-app.git
-   cd Notes-app/learning_log
+   cd Notes-app
    ```
-2. (Recommended) Create and activate a virtual environment:
+
+2. Create and activate a virtual environment:
    ```bash
-   python -m venv ll_env
-   source ll_env/bin/activate   # On Windows: ll_env\Scripts\activate
+   py -m venv .venv
+   .venv\Scripts\activate
    ```
-3. Install Django:
+
+3. Install dependencies:
    ```bash
-   pip install django
+   pip install -r learning_log/requirements.txt
    ```
+
 4. Apply migrations:
    ```bash
+   cd learning_log
    python manage.py migrate
    ```
-5. Create a superuser (optional, for the admin site):
-   ```bash
-   python manage.py createsuperuser
-   ```
-6. Run the development server:
+
+5. Run the app locally:
    ```bash
    python manage.py runserver
    ```
-7. Open your browser at `http://localhost:8000/`.
 
-## Status / Roadmap
+6. Open the app in the browser:
+   ```text
+   http://127.0.0.1:8000/
+   ```
 
-- [x] Core app: topics and entries (models, views, templates)
-- [x] User accounts: register, login, logout, restricted access
-- [ ] Styling the app (in progress)
-- [ ] Deployment (not yet done)
+## Deployment
+
+This project is configured for deployment on Render.
+
+### Render settings
+
+Build command:
+```bash
+pip install -r requirements.txt && python manage.py collectstatic --noinput
+```
+
+Start command:
+```bash
+gunicorn learning_log.wsgi:application --bind 0.0.0.0:$PORT
+```
+
+Environment variables:
+```bash
+DEBUG=False
+SECRET_KEY=your-secret-key
+ALLOWED_HOSTS=notes-app-gbwz.onrender.com,localhost,127.0.0.1
+```
+
+## Status
+
+- [x] Core app functionality
+- [x] User authentication
+- [x] Personal notes system
+- [x] Deployment configuration
+- [x] Live app available on Render

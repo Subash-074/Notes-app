@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Learning Log helps you organize topics, keep notes, and build consistent learning habits in a premium personal dashboard." />
     <title>Learning Log</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,12 +21,28 @@
             <span>Learning Log</span>
           </a>
 
-          <div class="nav-links">
-            <a href="{% url 'learning_logs:topics' %}">Topics</a>
+          <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div class="nav-menu">
             {% if user.is_authenticated %}
-              <span class="welcome">Hello, {{ user.username }}</span>
+              <a href="{% url 'learning_logs:topics' %}">Home</a>
+              <a href="{% url 'learning_logs:new_topic' %}">New topic</a>
+              <div class="profile-pill">
+                <span class="avatar-mini">{{ user.username|slice:':1'|upper }}</span>
+                <div>
+                  <strong>{{ user.get_full_name|default:user.username }}</strong>
+                  <small>@{{ user.username }}</small>
+                </div>
+              </div>
               <a href="{% url 'users:logout' %}" class="btn btn-ghost">Log out</a>
             {% else %}
+              <a href="#features">Features</a>
+              <a href="#how-it-works">How it works</a>
+              <a href="#benefits">Benefits</a>
               <a href="{% url 'users:register' %}">Register</a>
               <a href="{% url 'users:login' %}" class="btn btn-primary">Log in</a>
             {% endif %}
@@ -42,6 +59,35 @@
           {% block content %}{% endblock content %}
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="container footer-content">
+          <div>
+            <a class="brand footer-brand" href="{% url 'learning_logs:index' %}">
+              <span class="brand-mark">✦</span>
+              <span>Learning Log</span>
+            </a>
+            <p>Track your ideas, build better habits, and keep your knowledge organized in one premium personal workspace.</p>
+          </div>
+
+          <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#benefits">Benefits</a>
+            {% if user.is_authenticated %}
+              <a href="{% url 'learning_logs:topics' %}">Dashboard</a>
+            {% else %}
+              <a href="{% url 'users:login' %}">Login</a>
+            {% endif %}
+          </div>
+
+          <div class="footer-meta">
+            <span>© <span data-year></span> Learning Log</span>
+          </div>
+        </div>
+      </footer>
     </div>
+
+    <script src="{% static 'learning_logs/js/main.js' %}"></script>
   </body>
 </html>

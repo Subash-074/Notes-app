@@ -1,31 +1,35 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block header %}
-  <div class="hero">
+  <div class="hero reveal">
     <div class="hero-copy">
       <p class="eyebrow">Your personal learning space</p>
-      <h1>Track your learning.</h1>
+      <h1>Track your learning with clarity.</h1>
       <p class="hero-text">
-        Capture topics, document breakthroughs, and turn scattered ideas into a clear,
-        reusable knowledge base.
+        Capture ideas, organize topics, and turn scattered knowledge into a clean system that helps you grow every day.
       </p>
       <div class="hero-actions">
         <a href="{% url 'users:register' %}" class="btn btn-primary">Create account</a>
         <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
       </div>
+      <div class="trust-row">
+        <span>Private by design</span>
+        <span>Fast journaling</span>
+        <span>Smart organization</span>
+      </div>
     </div>
 
     <div class="hero-card">
       <div class="metric">
-        <span class="metric-number">24</span>
+        <span class="metric-number" data-target="24">0</span>
         <span class="metric-label">ideas captured</span>
       </div>
       <div class="metric">
-        <span class="metric-number">8</span>
+        <span class="metric-number" data-target="8">0</span>
         <span class="metric-label">active topics</span>
       </div>
       <div class="metric">
-        <span class="metric-number">96%</span>
+        <span class="metric-number" data-target="96">0</span>
         <span class="metric-label">momentum</span>
       </div>
     </div>
@@ -33,18 +37,75 @@
 {% endblock header %}
 
 {% block content %}
-  <div class="feature-grid">
-    <div class="feature-card">
-      <h3>Organize learning</h3>
-      <p>Group every subject into a dedicated space so your progress stays clear and focused.</p>
+  <section id="features" class="feature-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">Everything in one place</p>
+      <h2>Built to help you learn with intention.</h2>
     </div>
-    <div class="feature-card">
-      <h3>Build momentum</h3>
-      <p>Save meaningful insights as you go and revisit them whenever a concept needs refreshment.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">◎</div>
+        <h3>Organize learning</h3>
+        <p>Group every subject into a dedicated space so your progress stays clear and focused.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✦</div>
+        <h3>Build momentum</h3>
+        <p>Save meaningful insights as you go and revisit them whenever a concept needs refreshment.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▣</div>
+        <h3>Keep it personal</h3>
+        <p>Your topics and notes remain private, making the app feel like a trusted digital notebook.</p>
+      </div>
     </div>
-    <div class="feature-card">
-      <h3>Keep it personal</h3>
-      <p>Your topics and notes remain private, making the app feel like a trusted digital notebook.</p>
+  </section>
+
+  <section id="how-it-works" class="process-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Simple enough to use daily, powerful enough to trust.</h2>
     </div>
-  </div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <span class="step-number">01</span>
+        <h3>Create a topic</h3>
+        <p>Start with a subject, idea, skill, or goal you want to keep learning about.</p>
+      </div>
+      <div class="process-card">
+        <span class="step-number">02</span>
+        <h3>Capture updates</h3>
+        <p>Write entries as they happen so your progress stays current and easy to review.</p>
+      </div>
+      <div class="process-card">
+        <span class="step-number">03</span>
+        <h3>Reflect and grow</h3>
+        <p>Look back on your entries, spot patterns, and keep your learning organized over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" class="benefits-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">Why it matters</p>
+      <h2>Designed for students, builders, and lifelong learners.</h2>
+    </div>
+
+    <div class="benefit-layout">
+      <div class="benefit-panel">
+        <ul>
+          <li>Private personal knowledge workspace</li>
+          <li>Clean structure for notes and ideas</li>
+          <li>Fast editing and updates in one place</li>
+          <li>Perfect for projects, study, and self-growth</li>
+        </ul>
+      </div>
+
+      <div class="benefit-quote">
+        <p>“The best learning systems are simple, visible, and easy to revisit. This app turns that idea into a daily habit.”</p>
+      </div>
+    </div>
+  </section>
 {% endblock content %}

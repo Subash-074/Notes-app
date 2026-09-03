@@ -7,15 +7,28 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
+      if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('learning_logs:topics'))
       return render(request, 'learning_logs/index.html')
 
 @login_required
 def topics(request):
-      """Show all topics."""
+      """Show all topics in a personal social-style timeline."""
 
-      topics=Topic.objects.filter(owner=request.user).order_by('date_added')
-      context={'topics':topics}
-      return render(request, 'learning_logs/topics.html',context)
+      topics = Topic.objects.filter(owner=request.user).prefetch_related('entry_set').order_by('-date_added')
+      topic_cards = []
+      for topic in topics:
+            topic_cards.append({
+                  'topic': topic,
+                  'entries': topic.entry_set.order_by('-date_added')
+            })
+
+      context = {
+            'profile_user': request.user,
+            'topics': topics,
+            'topic_cards': topic_cards,
+      }
+      return render(request, 'learning_logs/topics.html', context)
 @login_required
 def topic(request, topic_id):
       """Show a single topic and all its entries."""

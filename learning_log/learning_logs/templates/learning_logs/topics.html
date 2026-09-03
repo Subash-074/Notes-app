@@ -1,28 +1,120 @@
 {% extends "learning_logs/base.html" %}
 
 {% block header %}
-  <div class="section-heading">
-    <p class="eyebrow">Your library</p>
-    <h1>Topics</h1>
+  <div class="profile-shell twitter-header">
+    <div class="profile-avatar">{{ user.username|slice:':1'|upper }}</div>
+    <div>
+      <p class="eyebrow">Profile</p>
+      <h1>{{ user.get_full_name|default:user.username }}</h1>
+      <p class="profile-handle">@{{ user.username }}</p>
+      <p class="profile-meta">{{ user.email|default:'No email provided' }}</p>
+    </div>
   </div>
 {% endblock header %}
 
 {% block content %}
-  <div class="stacked-actions">
-    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Add new topic</a>
-  </div>
-
-  <div class="topic-grid">
-    {% for topic in topics %}
-      <a href="{% url 'learning_logs:topic' topic.id %}" class="topic-card">
-        <span class="topic-badge">Topic</span>
-        <h3>{{ topic }}</h3>
-        <p>Open this topic and review your notes.</p>
-      </a>
-    {% empty %}
-      <div class="empty-state">
-        <p>No topics have been added yet.</p>
+  <div class="twitter-shell">
+    <aside class="twitter-sidebar left-sidebar">
+      <div class="profile-card">
+        <div class="profile-banner"></div>
+        <div class="profile-card-inner">
+          <div class="profile-avatar-large">{{ user.username|slice:':1'|upper }}</div>
+          <h2>{{ user.get_full_name|default:user.username }}</h2>
+          <p class="profile-handle">@{{ user.username }}</p>
+          <p class="profile-about">Learning, building, and turning ideas into consistent progress.</p>
+          <div class="quick-stats">
+            <div>
+              <strong>{{ topics.count }}</strong>
+              <span>Topics</span>
+            </div>
+            <div>
+              <strong>
+                {% for item in topic_cards %}
+                  {{ item.entries.count }}
+                {% endfor %}
+              </strong>
+              <span>Entries</span>
+            </div>
+          </div>
+        </div>
       </div>
-    {% endfor %}
+
+      <div class="sidebar-block">
+        <h3>Quick actions</h3>
+        <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary full-width">New topic</a>
+      </div>
+    </aside>
+
+    <main class="twitter-feed">
+      <div class="composer-card">
+        <div class="composer-top">
+          <span class="avatar-mini">{{ user.username|slice:':1'|upper }}</span>
+          <span>Share an idea or update</span>
+        </div>
+        <div class="composer-actions">
+          <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Create topic</a>
+        </div>
+      </div>
+
+      {% for item in topic_cards %}
+        <article class="tweet-card">
+          <div class="tweet-header">
+            <div class="feed-author">
+              <span class="avatar-mini">{{ user.username|slice:':1'|upper }}</span>
+              <div>
+                <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <small>@{{ user.username }} · {{ item.topic.date_added|date:'M d, Y' }}</small>
+              </div>
+            </div>
+            <a href="{% url 'learning_logs:topic' item.topic.id %}" class="tweet-link">Open thread</a>
+          </div>
+
+          <div class="tweet-body">
+            <span class="feed-tag">Topic</span>
+            <h3>{{ item.topic.text }}</h3>
+
+            {% for entry in item.entries %}
+              <div class="entry-post">
+                <div class="entry-post-top">
+                  <span>{{ entry.date_added|date:'M d, Y H:i' }}</span>
+                  <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a>
+                </div>
+                <p>{{ entry.text|linebreaks }}</p>
+              </div>
+            {% empty %}
+              <div class="empty-post">
+                <p>No entries yet for this topic.</p>
+                <a href="{% url 'learning_logs:new_entry' item.topic.id %}" class="btn btn-secondary">Add entry</a>
+              </div>
+            {% endfor %}
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state tweet-empty">
+          <p>You have not created any topics yet.</p>
+          <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Create your first topic</a>
+        </div>
+      {% endfor %}
+    </main>
+
+    <aside class="twitter-sidebar right-sidebar">
+      <div class="sidebar-block">
+        <h3>My space</h3>
+        <ul class="trend-list">
+          <li>
+            <span>Focus</span>
+            <strong>Learning goals</strong>
+          </li>
+          <li>
+            <span>Latest</span>
+            <strong>{{ topics.count }} topics</strong>
+          </li>
+          <li>
+            <span>Updates</span>
+            <strong>Keep notes flowing</strong>
+          </li>
+        </ul>
+      </div>
+    </aside>
   </div>
 {% endblock content %}

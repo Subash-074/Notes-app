@@ -10,8 +10,12 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('learning_logs:index'))
 
+
 def register(request):
     """Register a new user."""
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('learning_logs:topics'))
+
     if request.method != 'POST':
         # Display a blank registration form.
         form = UserCreationForm()
@@ -21,13 +25,12 @@ def register(request):
 
         if form.is_valid():
             new_user = form.save()
-            # Log the user in and redirect to home page.
             authenticated_user = authenticate(
                 username=new_user.username,
                 password=request.POST['password1']
             )
             login(request, authenticated_user)
-            return HttpResponseRedirect(reverse('learning_logs:index'))
+            return HttpResponseRedirect(reverse('learning_logs:topics'))
 
     context = {'form': form}
     return render(request, 'users/register.html', context)
